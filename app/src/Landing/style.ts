@@ -121,6 +121,9 @@ export default StyleSheet.create({
   cardWrapper: {
     position: "relative",
   },
+  cardPressable: {
+    borderRadius: 18,
+  },
   cardContainer: {
     backgroundColor: "#efefef",
     flexDirection: "column",
