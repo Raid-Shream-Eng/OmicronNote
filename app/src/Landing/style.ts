@@ -167,9 +167,6 @@ export default StyleSheet.create({
     color: "#111111",
     textAlign: "center",
   },
-  actionCardDisabled: {
-    opacity: 0.65,
-  },
   previewPanel: {
     marginTop: 8,
     backgroundColor: "#ffffff",
