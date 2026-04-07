@@ -1,34 +1,45 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { isRTL } from "../i18n";
 import styles from "./style";
 
-export function SelectionBar() {
+type SelectionBarProps = {
+  activeTab: "allNotes" | "folders";
+};
+
+export function SelectionBar({ activeTab }: SelectionBarProps) {
+  const { t, i18n } = useTranslation("landing");
+  const rtl = isRTL(i18n.resolvedLanguage);
+
+  const tabs = [
+    { key: "allNotes", label: t("allNotes") },
+    { key: "folders", label: t("folders") },
+  ] as const;
+
   return (
-    <View style={styles.selectionContainar}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={styles.selectionCard}>
-          <Image
-            source={require("../../assets/selection2.png")}
-            style={styles.cardImage}
-          />
-          <Text style={styles.cardTitle}>Home</Text>
-        </View>
-
-        <View style={styles.selectionCard}>
-          <Image
-            source={require("../../assets/icons8-notepad-50.png")}
-            style={styles.cardImage}
-          />
-          <Text style={styles.cardTitle}>All Notes</Text>
-        </View>
-
-        <View style={styles.selectionCard}>
-          <Image
-            source={require("../../assets/icons8-calendar-50.png")}
-            style={styles.cardImage}
-          />
-          <Text style={styles.cardTitle}>Calendar</Text>
-        </View>
-      </ScrollView>
+    <View style={[styles.tabRow, rtl && styles.tabRowRtl]}>
+      {tabs.map((tab) =>
+        tab.key === activeTab ? (
+          <View key={tab.key} style={styles.activeTabGroup}>
+            <Text
+              style={[styles.tabActive, rtl ? styles.textRtl : styles.textLtr]}
+            >
+              {tab.label}
+            </Text>
+            <View style={styles.tabIndicator} />
+          </View>
+        ) : (
+          <Text
+            key={tab.key}
+            style={[
+              styles.tabInactive,
+              rtl ? styles.textRtl : styles.textLtr,
+            ]}
+          >
+            {tab.label}
+          </Text>
+        )
+      )}
     </View>
   );
 }

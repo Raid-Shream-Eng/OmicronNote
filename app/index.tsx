@@ -1,6 +1,5 @@
-import { TasksScreen } from "./src/Screens/tasksScreen";
+import { LandingScreen } from "./src/Screens/landingScreen";
 
 export default function Index() {
-  return <TasksScreen />;
-  
+  return <LandingScreen />;
 }
