@@ -33,7 +33,11 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="notes" />
+        <Stack.Screen name="tasks" />
+      </Stack>
     </Provider>
   );
 }
