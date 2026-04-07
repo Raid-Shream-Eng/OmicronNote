@@ -1,6 +1,6 @@
 export const colors = {
- background: "#101010",
-  surface: "#1c1c1c",
+  background: "#c5c5c5",
+  surface: "#000000",
   surfaceMuted: "#161616",
   border: "#2f2f2f",
   primary: "#b4233c",
@@ -8,5 +8,4 @@ export const colors = {
   text: "#f5f5f5",
   textMuted: "#9b9b9b",
   atractive: "#fff461",
-  
-}
+};
