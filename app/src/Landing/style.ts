@@ -121,6 +121,9 @@ export default StyleSheet.create({
   cardWrapper: {
     position: "relative",
   },
+  cardPressable: {
+    borderRadius: 18,
+  },
   cardContainer: {
     backgroundColor: "#efefef",
     flexDirection: "column",
@@ -163,6 +166,9 @@ export default StyleSheet.create({
     fontWeight: "500",
     color: "#111111",
     textAlign: "center",
+  },
+  actionCardDisabled: {
+    opacity: 0.65,
   },
   previewPanel: {
     marginTop: 8,
