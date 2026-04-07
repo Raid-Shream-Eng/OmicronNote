@@ -1,0 +1,12 @@
+{
+  "profileName": "User Name",
+  "allNotes": "All Notes",
+  "folders": "Folders",
+  "myNotes": "My Notes",
+  "todoList": "To-do list",
+  "personal": "Personal",
+  "work": "Work",
+  "addNewFolder": "Add new folder",
+  "notesCount_one": "{{count}} note",
+  "notesCount_other": "{{count}} notes"
+}

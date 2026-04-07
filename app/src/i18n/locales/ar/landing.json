@@ -1,0 +1,16 @@
+{
+  "profileName": " اسم المستخدم",
+  "allNotes": "كل الملاحظات",
+  "folders": "المجلدات",
+  "myNotes": "ملاحظاتي",
+  "todoList": "قائمة المهام",
+  "personal": "شخصي",
+  "work": "العمل",
+  "addNewFolder": "إضافة مجلد جديد",
+  "notesCount_zero": "لا توجد ملاحظات",
+  "notesCount_one": "ملاحظة واحدة",
+  "notesCount_two": "ملاحظتان",
+  "notesCount_few": "{{count}} ملاحظات",
+  "notesCount_many": "{{count}} ملاحظة",
+  "notesCount_other": "{{count}} ملاحظة"
+}

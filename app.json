@@ -14,7 +14,7 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/Omicron.png",
+        "foregroundImage": "./assets/images/Omicron.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
@@ -22,6 +22,9 @@
     "web": {
       "output": "static",
       "favicon": "./assets/images/Omicron.png"
+    },
+    "extra": {
+      "supportsRTL": true
     },
     "plugins": [
       "expo-router",
@@ -36,7 +39,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,

@@ -1,14 +1,25 @@
 import { Image, Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { isRTL } from "../i18n";
 import styles from "./style";
 
-export function AddButton() {
+type AddButtonProps = {
+  label: string;
+};
+
+export function AddButton({ label }: AddButtonProps) {
+  const { i18n } = useTranslation();
+  const rtl = isRTL(i18n.resolvedLanguage);
+
   return (
-    <View style={styles.addButton}>
+    <View style={[styles.addButton, rtl && styles.addButtonRtl]}>
       <Image
         source={require("../../assets/icons8-plus-48.png")}
-        style={styles.addButtonImage}
+        style={[styles.addButtonImage, rtl && styles.addButtonImageRtl]}
       />
-      <Text style={styles.addButtonText}>Add new Note</Text>
+      <Text style={[styles.addButtonText, rtl && styles.addButtonTextRtl]}>
+        {label}
+      </Text>
     </View>
   );
 }
