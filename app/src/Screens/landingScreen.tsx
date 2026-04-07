@@ -1,14 +1,15 @@
-import { router } from "expo-router";
 import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useTranslation } from "react-i18next";
+import { isRTL } from "../i18n";
 import { AddButton } from "../Landing/button";
 import { Card } from "../Landing/card";
 import { HeaderProfile } from "../Landing/header";
 import { SelectionBar } from "../Landing/selectionBar";
-import { isRTL } from "../i18n";
 import styles from "../Landing/style";
 
 const profileImage = require("../../../assets/images/icon.png");
@@ -80,7 +81,10 @@ export function LandingScreen() {
                       style={styles.actionIcon}
                     />
                     <Text
-                      style={[styles.actionLabel, rtl && styles.centeredTextRtl]}
+                      style={[
+                        styles.actionLabel,
+                        rtl && styles.centeredTextRtl,
+                      ]}
                     >
                       {item.title}
                     </Text>
