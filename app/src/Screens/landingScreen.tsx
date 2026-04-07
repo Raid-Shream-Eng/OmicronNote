@@ -1,6 +1,7 @@
+import { router } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 import { AddButton } from "../Landing/button";
@@ -62,7 +63,15 @@ export function LandingScreen() {
 
             <View style={[styles.actionsRow, rtl && styles.actionsRowRtl]}>
               {quickActions.map((item) => (
-                <View key={item.key} style={styles.cardWrapper}>
+                <Pressable
+                  key={item.key}
+                  onPress={
+                    item.key === "todo"
+                      ? () => router.push("/tasks")
+                      : undefined
+                  }
+                  style={styles.cardWrapper}
+                >
                   <Card title={item.title} imageSource={item.imageSource} />
 
                   <View pointerEvents="none" style={styles.cardOverlay}>
@@ -76,7 +85,7 @@ export function LandingScreen() {
                       {item.title}
                     </Text>
                   </View>
-                </View>
+                </Pressable>
               ))}
             </View>
 
