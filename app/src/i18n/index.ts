@@ -2,8 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getLocales } from "expo-localization";
 import { createInstance } from "i18next";
 import { initReactI18next } from "react-i18next";
-import { I18nManager } from "react-native";
-import RNRestart from "react-native-restart";
+import { DevSettings, I18nManager, Platform } from "react-native";
 
 import arCommon from "./locales/ar/common.json";
 import arLanding from "./locales/ar/landing.json";
@@ -70,6 +69,16 @@ async function getStoredLanguage(): Promise<AppLanguage | null> {
   return normalizeLanguage(storedLanguage);
 }
 
+async function reloadApp() {
+  if (Platform.OS === "web") {
+    return;
+  }
+
+  if (__DEV__) {
+    DevSettings.reload();
+  }
+}
+
 export async function hydrateStoredLanguage() {
   await initI18n;
 
@@ -106,7 +115,7 @@ export async function setAppLanguage(language: AppLanguage) {
     I18nManager.allowRTL(shouldBeRTL);
     I18nManager.forceRTL(shouldBeRTL);
 
-    RNRestart.restart();
+    await reloadApp();
 
     return language;
   }
@@ -114,12 +123,16 @@ export async function setAppLanguage(language: AppLanguage) {
 }
 
 export async function toggleAppLanguage() {
-  await initI18n;
+  try {
+    await initI18n;
 
-  const current = normalizeLanguage(i18n.resolvedLanguage);
-  const next = current === "ar" ? "en" : "ar";
+    const current = normalizeLanguage(i18n.resolvedLanguage);
+    const next = current === "ar" ? "en" : "ar";
 
-  return setAppLanguage(next);
+    return setAppLanguage(next);
+  } catch (error: unknown) {
+    console.error("Failed to toggle app language", error);
+  }
 }
 
 export function isRTL(language = i18n.resolvedLanguage) {

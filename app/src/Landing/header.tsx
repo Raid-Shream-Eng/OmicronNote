@@ -1,4 +1,5 @@
 import { Feather } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import {
   Image,
   ImageSourcePropType,
@@ -6,7 +7,6 @@ import {
   Text,
   View,
 } from "react-native";
-import { useTranslation } from "react-i18next";
 import { isRTL, toggleAppLanguage } from "../i18n";
 import style from "./style";
 
