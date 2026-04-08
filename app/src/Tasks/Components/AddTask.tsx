@@ -19,7 +19,8 @@ export function AddTask({
   onAddTask,
   inputRef,
 }: AddTaskProps) {
-  const { i18n } = useTranslation();
+  // Reads task translations so the composer labels and placeholder localize correctly.
+  const { t, i18n } = useTranslation("tasks");
   const rtl = isRTL(i18n.resolvedLanguage);
   // Prevents adding empty or whitespace-only tasks.
   const isDisabled = value.trim().length === 0;
@@ -28,18 +29,19 @@ export function AddTask({
     <View style={[styles.composerCard, rtl && styles.composerCardRtl]}>
       {/* Introduces the task composer section. */}
       <Text style={[styles.composerTitle, rtl ? styles.textRtl : styles.textLtr]}>
-        Add a new task
+        {t("composerTitle")}
       </Text>
       {/* Brief guidance to keep task titles easy to scan. */}
       <Text style={[styles.composerSubtitle, rtl ? styles.textRtl : styles.textLtr]}>
-        Keep it short and clear so it is easy to scan later.
+        {t("composerSubtitle")}
       </Text>
       {/* Multi-line input for entering a new task title. */}
       <TextInput
         ref={inputRef}
         multiline
         numberOfLines={3}
-        placeholder="Write a new task"
+        // Uses the localized placeholder for the current language.
+        placeholder={t("composerPlaceholder")}
         placeholderTextColor={colors.atractive}
         style={[styles.textInput, rtl && styles.textInputRtl]}
         value={value}
@@ -54,7 +56,7 @@ export function AddTask({
         style={[styles.addButton, isDisabled && styles.addButtonDisabled]}
       >
         <Text style={[styles.addButtonText, rtl ? styles.textRtl : styles.textLtr]}>
-          Add task
+          {t("addTask")}
         </Text>
       </Pressable>
     </View>

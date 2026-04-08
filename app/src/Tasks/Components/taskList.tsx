@@ -20,7 +20,8 @@ export function TaskList({
   onDeleteTask,
   onFocusComposer,
 }: TaskListProps) {
-  const { i18n } = useTranslation();
+  // Reads task translations so the empty state matches the selected language.
+  const { t, i18n } = useTranslation("tasks");
   const rtl = isRTL(i18n.resolvedLanguage);
   // Prebuild the task cards so the main return stays easy to read.
   const taskItems = taskListItems.map(function renderTask(item) {
@@ -42,14 +43,14 @@ export function TaskList({
           <Feather name="clipboard" size={24} color="#fff461" />
         </View>
         <Text style={[styles.emptyTitle, rtl ? styles.textRtl : styles.textLtr]}>
-          No tasks yet
+          {t("emptyTitle")}
         </Text>
         <Text style={[styles.emptySubtitle, rtl ? styles.textRtl : styles.textLtr]}>
-          {"Add your first task and start shaping today's plan."}
+          {t("emptySubtitle")}
         </Text>
         <Pressable onPress={onFocusComposer} style={styles.emptyButton}>
           <Text style={[styles.emptyButtonText, rtl ? styles.textRtl : styles.textLtr]}>
-            Write my first task
+            {t("emptyButton")}
           </Text>
         </Pressable>
       </View>

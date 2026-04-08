@@ -8,14 +8,21 @@ import {
   View,
 } from "react-native";
 import { isRTL, toggleAppLanguage } from "../i18n";
+import type { AppResumeRoute } from "../i18n";
 import style from "./style";
 
 type HeaderProfileProps = {
   name: string;
   profileImage: ImageSourcePropType;
+  // Optional route to reopen after the app reloads during an RTL/LTR language change.
+  resumeRoute?: AppResumeRoute;
 };
 
-export function HeaderProfile({ name, profileImage }: HeaderProfileProps) {
+export function HeaderProfile({
+  name,
+  profileImage,
+  resumeRoute,
+}: HeaderProfileProps) {
   const { t, i18n } = useTranslation("common");
   const rtl = isRTL(i18n.resolvedLanguage);
 
@@ -29,9 +36,10 @@ export function HeaderProfile({ name, profileImage }: HeaderProfileProps) {
       </View>
 
       <View style={[style.headerActions, rtl && style.headerActionsRtl]}>
+        {/* Pass the current route into the language toggle so the user stays on the same screen after reload. */}
         <Pressable
           onPress={() => {
-            void toggleAppLanguage();
+            void toggleAppLanguage(resumeRoute);
           }}
           style={[style.languageToggle, rtl && style.languageToggleRtl]}
         >

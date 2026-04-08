@@ -9,20 +9,23 @@ type TaskHeaderProps = {
 };
 
 export function TaskHeader({ taskCount, completedCount }: TaskHeaderProps) {
-  const { i18n } = useTranslation();
+  // Reads task translations so the summary text changes with the active language.
+  const { t, i18n } = useTranslation("tasks");
   const rtl = isRTL(i18n.resolvedLanguage);
   // Adjust the label so the summary reads naturally for one or many tasks.
-  const taskLabel = taskCount === 1 ? "task" : "tasks";
+  const taskLabel = t("taskLabel", { count: taskCount });
+  // Calculates the remaining task count for the translated summary line.
+  const remainingCount = taskCount - completedCount;
 
   return (
     <View style={[styles.taskHeader, rtl && styles.taskHeaderRtl]}>
       {/* Gives the screen a lightweight section label above the main heading. */}
       <Text style={[styles.sectionEyebrow, rtl ? styles.textRtl : styles.textLtr]}>
-        Today
+        {t("today")}
       </Text>
       {/* Main title for the tasks destination. */}
       <Text style={[styles.screenTitle, rtl ? styles.textRtl : styles.textLtr]}>
-        Task Board
+        {t("taskBoard")}
       </Text>
       {/* Displays the current number of tasks. */}
       <Text style={[styles.taskMeta, rtl ? styles.textRtl : styles.textLtr]}>
@@ -30,7 +33,10 @@ export function TaskHeader({ taskCount, completedCount }: TaskHeaderProps) {
       </Text>
       {/* Shows a quick progress summary based on completed tasks. */}
       <Text style={[styles.taskHint, rtl ? styles.textRtl : styles.textLtr]}>
-        {completedCount} completed, {taskCount - completedCount} still on deck
+        {t("taskSummary", {
+          completed: completedCount,
+          remaining: remainingCount,
+        })}
       </Text>
     </View>
   );

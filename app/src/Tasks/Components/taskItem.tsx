@@ -17,7 +17,8 @@ export default function TaskItem({
   onToggleTask,
   onDeleteTask,
 }: TaskItemProps) {
-  const { i18n } = useTranslation();
+  // Reads task translations so status labels and accessibility text localize too.
+  const { t, i18n } = useTranslation("tasks");
   const rtl = isRTL(i18n.resolvedLanguage);
 
   return (
@@ -47,13 +48,14 @@ export default function TaskItem({
           {task.title}
         </Text>
         <Text style={[styles.taskStatus, rtl ? styles.textRtl : styles.textLtr]}>
-          {task.completed ? "Completed" : "Pending"}
+          {task.completed ? t("statusCompleted") : t("statusPending")}
         </Text>
       </View>
 
       {/* Separate delete action keeps removal explicit and easy to reach. */}
       <Pressable
-        accessibilityLabel={`Delete ${task.title}`}
+        // Makes the delete accessibility label match the current language.
+        accessibilityLabel={t("deleteTask", { title: task.title })}
         onPress={() => onDeleteTask(task.id)}
         style={styles.deleteButton}
       >

@@ -24,7 +24,8 @@ function createTask(title: string): Tasks {
 }
 
 export function TasksScreen() {
-  const { t, i18n } = useTranslation("landing");
+  // Reads the task namespace so the task screen can show translated copy.
+  const { t, i18n } = useTranslation(["landing", "tasks"]);
   const rtl = isRTL(i18n.resolvedLanguage);
 
   // Holds the text currently being typed into the task composer.
@@ -33,8 +34,9 @@ export function TasksScreen() {
   const inputRef = useRef<TextInput>(null);
   // Starts the screen with a couple of sample tasks for immediate feedback.
   const [tasks, setTasks] = useState<Tasks[]>([
-    createTask("Review meeting notes"),
-    createTask("Plan the next design pass"),
+    // Seeds the list with translated sample tasks so both languages look complete.
+    createTask(t("tasks:sampleTaskReview")),
+    createTask(t("tasks:sampleTaskPlan")),
   ]);
 
   // Calculates completed tasks for the header summary.
@@ -98,7 +100,7 @@ export function TasksScreen() {
                   rtl ? landingStyles.textRtl : landingStyles.textLtr,
                 ]}
               >
-                Daily planner
+                {t("tasks:introEyebrow")}
               </Text>
               <Text
                 style={[
@@ -106,7 +108,7 @@ export function TasksScreen() {
                   rtl ? landingStyles.textRtl : landingStyles.textLtr,
                 ]}
               >
-                Capture, review, and complete your tasks in one clean space.
+                {t("tasks:introDescription")}
               </Text>
             </View>
 

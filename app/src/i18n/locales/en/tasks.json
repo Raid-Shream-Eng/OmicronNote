@@ -1,0 +1,21 @@
+{
+  "introEyebrow": "Daily planner",
+  "introDescription": "Capture, review, and complete your tasks in one clean space.",
+  "sampleTaskReview": "Review meeting notes",
+  "sampleTaskPlan": "Plan the next design pass",
+  "composerTitle": "Add a new task",
+  "composerSubtitle": "Keep it short and clear so it is easy to scan later.",
+  "composerPlaceholder": "Write a new task",
+  "addTask": "Add task",
+  "today": "Today",
+  "taskBoard": "Task Board",
+  "taskLabel_one": "task",
+  "taskLabel_other": "tasks",
+  "taskSummary": "{{completed}} completed, {{remaining}} still on deck",
+  "statusCompleted": "Completed",
+  "statusPending": "Pending",
+  "deleteTask": "Delete {{title}}",
+  "emptyTitle": "No tasks yet",
+  "emptySubtitle": "Add your first task and start shaping today's plan.",
+  "emptyButton": "Write my first task"
+}
