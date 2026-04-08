@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file renders the task list area and the task empty state.
+ * It receives task data and callbacks from the parent screen, then decides whether to show
+ * the task cards or the friendly empty state.
+ * This is a good example of keeping display branching inside a presentational list component.
+ */
 import React from "react";
 import { Feather } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
@@ -20,7 +27,8 @@ export function TaskList({
   onDeleteTask,
   onFocusComposer,
 }: TaskListProps) {
-  const { i18n } = useTranslation();
+  // Reads task translations so the empty state matches the selected language.
+  const { t, i18n } = useTranslation("tasks");
   const rtl = isRTL(i18n.resolvedLanguage);
   // Prebuild the task cards so the main return stays easy to read.
   const taskItems = taskListItems.map(function renderTask(item) {
@@ -42,14 +50,14 @@ export function TaskList({
           <Feather name="clipboard" size={24} color="#fff461" />
         </View>
         <Text style={[styles.emptyTitle, rtl ? styles.textRtl : styles.textLtr]}>
-          No tasks yet
+          {t("emptyTitle")}
         </Text>
         <Text style={[styles.emptySubtitle, rtl ? styles.textRtl : styles.textLtr]}>
-          {"Add your first task and start shaping today's plan."}
+          {t("emptySubtitle")}
         </Text>
         <Pressable onPress={onFocusComposer} style={styles.emptyButton}>
           <Text style={[styles.emptyButtonText, rtl ? styles.textRtl : styles.textLtr]}>
-            Write my first task
+            {t("emptyButton")}
           </Text>
         </Pressable>
       </View>

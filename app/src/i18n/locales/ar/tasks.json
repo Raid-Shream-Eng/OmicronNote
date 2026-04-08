@@ -1,0 +1,21 @@
+{
+  "introEyebrow": "مخطط اليوم",
+  "introDescription": "دوّن مهامك وراجعها وأنجزها في مكان واحد مرتب.",
+  "sampleTaskReview": "راجع ملاحظات الاجتماع",
+  "sampleTaskPlan": "خطط لمرحلة التصميم التالية",
+  "composerTitle": "أضف مهمة جديدة",
+  "composerSubtitle": "اجعلها قصيرة وواضحة حتى يسهل مراجعتها لاحقًا.",
+  "composerPlaceholder": "اكتب مهمة جديدة",
+  "addTask": "أضف مهمة",
+  "today": "اليوم",
+  "taskBoard": "لوحة المهام",
+  "taskLabel_one": "مهمة",
+  "taskLabel_other": "مهام",
+  "taskSummary": "{{completed}} مكتملة، {{remaining}} متبقية",
+  "statusCompleted": "مكتملة",
+  "statusPending": "قيد التنفيذ",
+  "deleteTask": "احذف {{title}}",
+  "emptyTitle": "لا توجد مهام بعد",
+  "emptySubtitle": "أضف أول مهمة وابدأ بتنظيم يومك.",
+  "emptyButton": "اكتب أول مهمة"
+}

@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file renders one task row in the tasks list.
+ * It shows the checkbox, task title, task status, and delete action.
+ * The component does not own task state itself; it only calls callbacks from its parent.
+ * This makes it a clear example of prop-driven UI with small focused responsibilities.
+ */
 import { Feather } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
@@ -17,7 +24,8 @@ export default function TaskItem({
   onToggleTask,
   onDeleteTask,
 }: TaskItemProps) {
-  const { i18n } = useTranslation();
+  // Reads task translations so status labels and accessibility text localize too.
+  const { t, i18n } = useTranslation("tasks");
   const rtl = isRTL(i18n.resolvedLanguage);
 
   return (
@@ -47,13 +55,14 @@ export default function TaskItem({
           {task.title}
         </Text>
         <Text style={[styles.taskStatus, rtl ? styles.textRtl : styles.textLtr]}>
-          {task.completed ? "Completed" : "Pending"}
+          {task.completed ? t("statusCompleted") : t("statusPending")}
         </Text>
       </View>
 
       {/* Separate delete action keeps removal explicit and easy to reach. */}
       <Pressable
-        accessibilityLabel={`Delete ${task.title}`}
+        // Makes the delete accessibility label match the current language.
+        accessibilityLabel={t("deleteTask", { title: task.title })}
         onPress={() => onDeleteTask(task.id)}
         style={styles.deleteButton}
       >
