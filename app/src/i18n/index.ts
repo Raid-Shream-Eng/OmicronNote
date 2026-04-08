@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file configures internationalization for the whole app.
+ * It loads translation namespaces, manages the current language, handles RTL/LTR direction,
+ * saves language choice on the device, and restores startup routes after language-triggered reloads.
+ * If text direction or translation behavior feels confusing, read this file slowly from top to bottom.
+ */
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createInstance } from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -5,16 +12,24 @@ import { DevSettings, I18nManager, Platform } from "react-native";
 
 import arCommon from "./locales/ar/common.json";
 import arLanding from "./locales/ar/landing.json";
+// Loads the Arabic text used by the notes screen and note list components.
+import arNotes from "./locales/ar/notes.json";
+// Loads the Arabic text used by the settings screen.
+import arSettings from "./locales/ar/settings.json";
 // Loads the Arabic text used by the task screen and task components.
 import arTasks from "./locales/ar/tasks.json";
 import enCommon from "./locales/en/common.json";
 import enLanding from "./locales/en/landing.json";
+// Loads the English text used by the notes screen and note list components.
+import enNotes from "./locales/en/notes.json";
+// Loads the English text used by the settings screen.
+import enSettings from "./locales/en/settings.json";
 // Loads the English text used by the task screen and task components.
 import enTasks from "./locales/en/tasks.json";
 
 export type AppLanguage = "en" | "ar";
 // Limit saved resume routes to real Expo Router files so router.replace stays type-safe.
-export type AppResumeRoute = "/" | "/tasks";
+export type AppResumeRoute = "/" | "/notes" | "/tasks" | "/settings";
 
 const LANGUAGE_STORAGE_KEY = "@omicronnote/language";
 // Keeps the user's last valid screen so the app can reopen it after a restart.
@@ -31,7 +46,12 @@ function normalizeLanguage(language?: string | null): AppLanguage {
 
 // Restricts restored routes to real app routes before they are reused.
 function isAppResumeRoute(route: string): route is AppResumeRoute {
-  return route === "/" || route === "/tasks";
+  return (
+    route === "/" ||
+    route === "/notes" ||
+    route === "/tasks" ||
+    route === "/settings"
+  );
 }
 
 export const initI18n = i18n.use(initReactI18next).init({
@@ -39,12 +59,20 @@ export const initI18n = i18n.use(initReactI18next).init({
     en: {
       common: enCommon,
       landing: enLanding,
+      // Registers the English notes translation namespace.
+      notes: enNotes,
+      // Registers the English settings translation namespace.
+      settings: enSettings,
       // Registers the English task translation namespace.
       tasks: enTasks,
     },
     ar: {
       common: arCommon,
       landing: arLanding,
+      // Registers the Arabic notes translation namespace.
+      notes: arNotes,
+      // Registers the Arabic settings translation namespace.
+      settings: arSettings,
       // Registers the Arabic task translation namespace.
       tasks: arTasks,
     },
@@ -58,7 +86,7 @@ export const initI18n = i18n.use(initReactI18next).init({
 
   defaultNS: "common",
   // Declares every translation namespace the app can read from.
-  ns: ["common", "landing", "tasks"],
+  ns: ["common", "landing", "notes", "settings", "tasks"],
 
   interpolation: {
     escapeValue: false,

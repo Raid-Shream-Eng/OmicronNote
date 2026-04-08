@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file renders the reusable top header shown on multiple screens.
+ * It displays the profile area, the language toggle, and a few icon actions.
+ * Because it is shared across sections, changes here affect landing, notes, tasks, and settings.
+ * It is also important because it forwards the route used during language-change reload recovery.
+ */
 import { Feather } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import {

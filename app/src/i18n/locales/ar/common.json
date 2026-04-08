@@ -1,4 +1,8 @@
 {
   "languageToggle": "EN",
-  "backHome": "العودة للرئيسية"
+  "backHome": "العودة للرئيسية",
+  "navHome": "الرئيسية",
+  "navNotes": "الملاحظات",
+  "navTasks": "المهام",
+  "navSettings": "الإعدادات"
 }

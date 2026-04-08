@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file renders the summary header inside the tasks screen content panel.
+ * It shows the task count and completion summary using translated text.
+ * Like the note header, it is a focused presentational component rather than a full screen.
+ * This is useful for learning how small UI pieces can stay isolated and reusable.
+ */
 import { Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { isRTL } from "../../i18n";

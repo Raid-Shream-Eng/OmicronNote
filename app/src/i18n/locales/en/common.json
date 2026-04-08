@@ -1,4 +1,8 @@
 {
   "languageToggle": "AR",
-  "backHome": "Back to home"
+  "backHome": "Back to home",
+  "navHome": "Home",
+  "navNotes": "Notes",
+  "navTasks": "Tasks",
+  "navSettings": "Settings"
 }

@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file renders one task row in the tasks list.
+ * It shows the checkbox, task title, task status, and delete action.
+ * The component does not own task state itself; it only calls callbacks from its parent.
+ * This makes it a clear example of prop-driven UI with small focused responsibilities.
+ */
 import { Feather } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";

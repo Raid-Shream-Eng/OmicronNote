@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file renders the task composer used on the tasks screen.
+ * It handles only the UI for entering a task title and pressing the add button.
+ * The actual task state still lives in the parent screen, which is a common React pattern.
+ * This is a good example of a controlled form component with RTL-aware styling.
+ */
 import { isRTL } from "../..//i18n";
 import { colors } from "@/app/src/Theme/color";
 import styles from "./style";

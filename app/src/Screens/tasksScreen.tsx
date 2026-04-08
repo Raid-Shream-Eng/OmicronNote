@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file is the tasks screen for the to-do part of the app.
+ * It owns temporary task UI state, renders the task summary and task list,
+ * and reuses the shared app shell and bottom navigation.
+ * Reading this screen beside `notesScreen.tsx` is a good way to compare two different feature styles.
+ */
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { isRTL } from "../i18n";
 import { HeaderProfile } from "../Landing/header";
 import landingStyles from "../Landing/style";
+import { BottomNav } from "../Navigation/bottomNav";
 import { AddTask } from "../Tasks/Components/AddTask";
 import styles from "../Tasks/Components/style";
 import { TaskHeader } from "../Tasks/Components/taskHeader";
@@ -79,59 +87,64 @@ export function TasksScreen() {
       <StatusBar style="dark" />
       <SafeAreaView style={landingStyles.safeArea}>
         <View style={landingStyles.phoneShell}>
-          <ScrollView
-            contentContainerStyle={landingStyles.content}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
-            {/* Reuses the same profile header pattern from the landing screen. */}
-            <HeaderProfile
-              name={t("profileName")}
-              profileImage={profileImage}
-              // Tells the shared language toggle to restore the task screen after an RTL/LTR reload.
-              resumeRoute="/tasks"
-            />
+          {/* Splits the task screen into scrollable content and a fixed bottom navigation bar. */}
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              contentContainerStyle={landingStyles.content}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+            >
+              {/* Reuses the same profile header pattern from the landing screen. */}
+              <HeaderProfile
+                name={t("profileName")}
+                profileImage={profileImage}
+                // Tells the shared language toggle to restore the task screen after an RTL/LTR reload.
+                resumeRoute="/tasks"
+              />
 
-            {/* Mirrors the landing screen with a lightweight section intro. */}
-            <View style={[styles.screenIntro, rtl && styles.screenIntroRtl]}>
-              <Text
-                style={[
-                  styles.screenEyebrow,
-                  rtl ? landingStyles.textRtl : landingStyles.textLtr,
-                ]}
-              >
-                {t("tasks:introEyebrow")}
-              </Text>
-              <Text
-                style={[
-                  styles.screenDescription,
-                  rtl ? landingStyles.textRtl : landingStyles.textLtr,
-                ]}
-              >
-                {t("tasks:introDescription")}
-              </Text>
-            </View>
+              {/* Mirrors the landing screen with a lightweight section intro. */}
+              <View style={[styles.screenIntro, rtl && styles.screenIntroRtl]}>
+                <Text
+                  style={[
+                    styles.screenEyebrow,
+                    rtl ? landingStyles.textRtl : landingStyles.textLtr,
+                  ]}
+                >
+                  {t("tasks:introEyebrow")}
+                </Text>
+                <Text
+                  style={[
+                    styles.screenDescription,
+                    rtl ? landingStyles.textRtl : landingStyles.textLtr,
+                  ]}
+                >
+                  {t("tasks:introDescription")}
+                </Text>
+              </View>
 
-            {/* Uses the landing-style preview panel as the main content surface. */}
-            <View style={landingStyles.previewPanel}>
-              <TaskHeader
-                taskCount={tasks.length}
-                completedCount={completedCount}
-              />
-              <AddTask
-                value={taskTitle}
-                onChangeText={setTaskTitle}
-                onAddTask={handleAddTask}
-                inputRef={inputRef}
-              />
-              <TaskList
-                taskListItems={tasks}
-                onToggleTask={handleToggleTask}
-                onDeleteTask={handleDeleteTask}
-                onFocusComposer={handleFocusComposer}
-              />
-            </View>
-          </ScrollView>
+              {/* Uses the landing-style preview panel as the main content surface. */}
+              <View style={landingStyles.previewPanel}>
+                <TaskHeader
+                  taskCount={tasks.length}
+                  completedCount={completedCount}
+                />
+                <AddTask
+                  value={taskTitle}
+                  onChangeText={setTaskTitle}
+                  onAddTask={handleAddTask}
+                  inputRef={inputRef}
+                />
+                <TaskList
+                  taskListItems={tasks}
+                  onToggleTask={handleToggleTask}
+                  onDeleteTask={handleDeleteTask}
+                  onFocusComposer={handleFocusComposer}
+                />
+              </View>
+            </ScrollView>
+            {/* Adds section-level tab navigation so users can jump between screens quickly. */}
+            <BottomNav />
+          </View>
         </View>
       </SafeAreaView>
     </>

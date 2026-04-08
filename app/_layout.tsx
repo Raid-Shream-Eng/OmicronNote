@@ -1,12 +1,20 @@
+/**
+ * Student Guide:
+ * This is the root layout for the whole Expo Router app.
+ * It wraps the routed screens with Redux, runs app startup preparation,
+ * restores the last main route, and defines the stack of top-level screens.
+ * When you want to understand how the app starts, begin reading here,
+ * then continue into `src/app/bootstrap.ts` and `src/store/store.ts`.
+ */
 import { Stack, usePathname, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
+// Imports startup helpers so the root layout can stay focused on routing and providers.
 import {
-  consumePendingRoute,
-  getStoredLastRoute,
-  hydrateStoredLanguage,
-  storeLastRoute,
-} from "./src/i18n";
+  prepareApp as prepareApplication,
+  rememberMainRoute,
+  resolveStartupRoute,
+} from "./src/app/bootstrap";
 import { store } from "./src/store/store";
 
 export default function RootLayout() {
@@ -19,9 +27,11 @@ export default function RootLayout() {
   useEffect(() => {
     let isMounted = true;
 
-    async function prepareLanguage() {
+    // Prepares app data and language before the routed screens appear.
+    async function initializeApp() {
       try {
-        await hydrateStoredLanguage();
+        // Delegates boot-time note hydration and language setup to the app bootstrap helper.
+        await prepareApplication(store);
       } finally {
         if (isMounted) {
           setIsReady(true);
@@ -29,7 +39,7 @@ export default function RootLayout() {
       }
     }
 
-    void prepareLanguage();
+    void initializeApp();
 
     return () => {
       isMounted = false;
@@ -44,18 +54,16 @@ export default function RootLayout() {
 
     let isMounted = true;
 
-    async function restorePendingRoute() {
-      // Consume the stored route once so we do not keep redirecting on later renders.
-      const pendingRoute = await consumePendingRoute();
-      // Fall back to the last saved route on normal app restarts.
-      const restoreRoute = pendingRoute ?? (await getStoredLastRoute());
+    async function restoreStartupRoute() {
+      // Resolves either the one-time reload route or the last main route visited by the user.
+      const restoreRoute = await resolveStartupRoute();
 
       if (isMounted && restoreRoute && restoreRoute !== pathname) {
         router.replace(restoreRoute);
       }
     }
 
-    void restorePendingRoute();
+    void restoreStartupRoute();
 
     return () => {
       isMounted = false;
@@ -68,9 +76,8 @@ export default function RootLayout() {
       return;
     }
 
-    if (pathname === "/" || pathname === "/tasks") {
-      void storeLastRoute(pathname);
-    }
+    // Remembers only main app routes so regular restarts return to the last section screen.
+    void rememberMainRoute(pathname);
   }, [isReady, pathname]);
 
   if (!isReady) {
@@ -83,6 +90,8 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="notes" />
         <Stack.Screen name="tasks" />
+        <Stack.Screen name="settings" />
+        <Stack.Screen name="note-details" />
       </Stack>
     </Provider>
   );

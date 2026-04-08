@@ -1,0 +1,12 @@
+{
+  "introEyebrow": "Settings",
+  "introDescription": "Adjust your language preference now and leave room for more app settings soon.",
+  "languageTitle": "Preferred language",
+  "languageHint": "English is the default until you explicitly choose another language here.",
+  "languageEnglish": "English",
+  "languageArabic": "Arabic",
+  "storageTitle": "Storage summary",
+  "storageHint": "Your notes already save on the device, and the app also remembers the last main screen you visited.",
+  "storageCount_one": "{{count}} note currently stored on this device.",
+  "storageCount_other": "{{count}} notes currently stored on this device."
+}

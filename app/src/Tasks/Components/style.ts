@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file contains the task feature style sheet.
+ * It covers the task intro area, summary header, composer, task cards, and empty state.
+ * It also contains shared text-direction helpers used by multiple task components.
+ * Comparing this file with the notes style file shows how each feature owns its own visual layer.
+ */
 import { colors } from "@/app/src/Theme/color";
 import { StyleSheet } from "react-native";
 

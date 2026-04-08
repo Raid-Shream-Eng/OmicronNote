@@ -1,3 +1,10 @@
+/**
+ * Student Guide:
+ * This file renders the task list area and the task empty state.
+ * It receives task data and callbacks from the parent screen, then decides whether to show
+ * the task cards or the friendly empty state.
+ * This is a good example of keeping display branching inside a presentational list component.
+ */
 import React from "react";
 import { Feather } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
