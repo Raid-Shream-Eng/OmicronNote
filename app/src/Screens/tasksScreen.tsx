@@ -86,10 +86,12 @@ export function TasksScreen() {
             <HeaderProfile
               name={t("profileName")}
               profileImage={profileImage}
+              // Tells the shared language toggle to restore the task screen after an RTL/LTR reload.
+              resumeRoute="/tasks"
             />
 
             {/* Mirrors the landing screen with a lightweight section intro. */}
-            <View style={styles.screenIntro}>
+            <View style={[styles.screenIntro, rtl && styles.screenIntroRtl]}>
               <Text
                 style={[
                   styles.screenEyebrow,

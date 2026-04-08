@@ -50,6 +50,10 @@ export default StyleSheet.create({
     marginBottom: 12,
     gap: 6,
   },
+  // Mirrors the intro block alignment for RTL languages.
+  screenIntroRtl: {
+    alignItems: "flex-end",
+  },
   // Small label introducing the task section.
   screenEyebrow: {
     color: "#8c8c8c",
@@ -77,6 +81,10 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: "#f0f0f0",
   },
+  // Flips the task row so actions read naturally in RTL layouts.
+  taskCardRtl: {
+    flexDirection: "row-reverse",
+  },
   // Base task title styling before completion state overrides.
   taskTitle: {
     fontSize: 17,
@@ -87,6 +95,10 @@ export default StyleSheet.create({
   taskHeader: {
     gap: 4,
     marginBottom: 18,
+  },
+  // Aligns the summary block to the right for RTL languages.
+  taskHeaderRtl: {
+    alignItems: "flex-end",
   },
   // Small accent label above the main screen title.
   sectionEyebrow: {
@@ -123,6 +135,10 @@ export default StyleSheet.create({
     borderColor: "#f0f0f0",
     marginBottom: 20,
   },
+  // Aligns the composer section to the right in RTL.
+  composerCardRtl: {
+    alignItems: "flex-end",
+  },
   // Title text inside the composer card.
   composerTitle: {
     color: "#111111",
@@ -149,6 +165,11 @@ export default StyleSheet.create({
     textAlignVertical: "top",
     fontSize: 16,
   },
+  // Makes the multi-line task input start from the right in RTL.
+  textInputRtl: {
+    textAlign: "right",
+    writingDirection: "rtl",
+  },
   // Primary button styling for adding a task.
   addButton: {
     backgroundColor: "#111111",
@@ -171,6 +192,10 @@ export default StyleSheet.create({
   listContent: {
     flexGrow: 1,
     paddingBottom: 10,
+  },
+  // Aligns the empty state content to the right in RTL.
+  emptyStateRtl: {
+    alignItems: "flex-end",
   },
   // Centered empty state card shown before any tasks are added.
   emptyState: {
@@ -241,6 +266,10 @@ export default StyleSheet.create({
     flex: 1,
     gap: 4,
   },
+  // Keeps the task text block anchored to the right in RTL layouts.
+  taskBodyRtl: {
+    alignItems: "flex-end",
+  },
   // Strikethrough styling applied after a task is completed.
   taskTitleCompleted: {
     textDecorationLine: "line-through",
@@ -260,5 +289,15 @@ export default StyleSheet.create({
     backgroundColor: "#111111",
     alignItems: "center",
     justifyContent: "center",
+  },
+  // Shared left-to-right text helper for task content.
+  textLtr: {
+    textAlign: "left",
+    writingDirection: "ltr",
+  },
+  // Shared right-to-left text helper for task content.
+  textRtl: {
+    textAlign: "right",
+    writingDirection: "rtl",
   },
 });

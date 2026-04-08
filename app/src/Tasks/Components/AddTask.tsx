@@ -1,7 +1,9 @@
+import { isRTL } from "../..//i18n";
 import { colors } from "@/app/src/Theme/color";
 import styles from "./style";
 import { RefObject } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 type AddTaskProps = {
   value: string;
@@ -17,15 +19,19 @@ export function AddTask({
   onAddTask,
   inputRef,
 }: AddTaskProps) {
+  const { i18n } = useTranslation();
+  const rtl = isRTL(i18n.resolvedLanguage);
   // Prevents adding empty or whitespace-only tasks.
   const isDisabled = value.trim().length === 0;
 
   return (
-    <View style={styles.composerCard}>
+    <View style={[styles.composerCard, rtl && styles.composerCardRtl]}>
       {/* Introduces the task composer section. */}
-      <Text style={styles.composerTitle}>Add a new task</Text>
+      <Text style={[styles.composerTitle, rtl ? styles.textRtl : styles.textLtr]}>
+        Add a new task
+      </Text>
       {/* Brief guidance to keep task titles easy to scan. */}
-      <Text style={styles.composerSubtitle}>
+      <Text style={[styles.composerSubtitle, rtl ? styles.textRtl : styles.textLtr]}>
         Keep it short and clear so it is easy to scan later.
       </Text>
       {/* Multi-line input for entering a new task title. */}
@@ -35,7 +41,7 @@ export function AddTask({
         numberOfLines={3}
         placeholder="Write a new task"
         placeholderTextColor={colors.atractive}
-        style={styles.textInput}
+        style={[styles.textInput, rtl && styles.textInputRtl]}
         value={value}
         onChangeText={onChangeText}
         onSubmitEditing={onAddTask}
@@ -47,7 +53,9 @@ export function AddTask({
         onPress={onAddTask}
         style={[styles.addButton, isDisabled && styles.addButtonDisabled]}
       >
-        <Text style={styles.addButtonText}>Add task</Text>
+        <Text style={[styles.addButtonText, rtl ? styles.textRtl : styles.textLtr]}>
+          Add task
+        </Text>
       </Pressable>
     </View>
   );

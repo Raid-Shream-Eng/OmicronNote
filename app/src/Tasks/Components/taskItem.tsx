@@ -1,6 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
 
+import { isRTL } from "../../i18n";
 import styles from "./style";
 import type { Tasks } from "./types";
 
@@ -15,8 +17,11 @@ export default function TaskItem({
   onToggleTask,
   onDeleteTask,
 }: TaskItemProps) {
+  const { i18n } = useTranslation();
+  const rtl = isRTL(i18n.resolvedLanguage);
+
   return (
-    <View style={styles.taskCard}>
+    <View style={[styles.taskCard, rtl && styles.taskCardRtl]}>
       {/* Tapping the checkbox toggles the task between pending and completed. */}
       <Pressable
         accessibilityRole="checkbox"
@@ -31,16 +36,17 @@ export default function TaskItem({
       </Pressable>
 
       {/* The middle section shows the task title and its current state. */}
-      <View style={styles.taskBody}>
+      <View style={[styles.taskBody, rtl && styles.taskBodyRtl]}>
         <Text
           style={[
             styles.taskTitle,
             task.completed && styles.taskTitleCompleted,
+            rtl ? styles.textRtl : styles.textLtr,
           ]}
         >
           {task.title}
         </Text>
-        <Text style={styles.taskStatus}>
+        <Text style={[styles.taskStatus, rtl ? styles.textRtl : styles.textLtr]}>
           {task.completed ? "Completed" : "Pending"}
         </Text>
       </View>
