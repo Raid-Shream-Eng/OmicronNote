@@ -1,10 +1,3 @@
-/**
- * Student Guide:
- * This file renders the reusable top header shown on multiple screens.
- * It displays the profile area, the language toggle, and a few icon actions.
- * Because it is shared across sections, changes here affect landing, notes, tasks, and settings.
- * It is also important because it forwards the route used during language-change reload recovery.
- */
 import { Feather } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,7 +14,6 @@ import style from "./style";
 type HeaderProfileProps = {
   name: string;
   profileImage: ImageSourcePropType;
-  // Optional route to reopen after the app reloads during an RTL/LTR language change.
   resumeRoute?: AppResumeRoute;
 };
 
@@ -43,7 +35,6 @@ export function HeaderProfile({
       </View>
 
       <View style={[style.headerActions, rtl && style.headerActionsRtl]}>
-        {/* Pass the current route into the language toggle so the user stays on the same screen after reload. */}
         <Pressable
           onPress={() => {
             void toggleAppLanguage(resumeRoute);

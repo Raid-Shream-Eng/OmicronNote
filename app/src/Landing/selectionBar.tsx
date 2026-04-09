@@ -1,10 +1,3 @@
-/**
- * Student Guide:
- * This file renders the two-tab selection bar used on the landing screen.
- * It is a presentational component that only cares about which tab is active.
- * It reads translated labels and applies RTL-aware styles.
- * This is a good example of simple derived UI from a small prop.
- */
 import { Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { isRTL } from "../i18n";

@@ -1,10 +1,3 @@
-/**
- * Student Guide:
- * This file is the note detail and note editor screen.
- * It handles both creating new notes and editing existing ones, based on the route params.
- * The screen owns temporary form state, while Redux owns the saved note collection.
- * This is one of the best files for studying how local form state and global app state work together.
- */
 import { Feather } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -14,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import landingStyles from "../Landing/style";
 import noteStyles from "../Notes/Components/style";
-// Imports note editor options and note-building helpers from the notes feature model layer.
 import {
   createEntityId,
   createNoteDraft,
@@ -31,7 +23,6 @@ import {
   NoteType,
 } from "../features/notes/model/noteModel";
 import { isRTL } from "../i18n";
-// Imports note actions from the notes feature state so editor logic stays feature-centered.
 import {
   addNote,
   deleteNote,
@@ -39,60 +30,40 @@ import {
   updateNote,
 } from "../features/notes/state/notesSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-
-// Reuses the same cover preview presets shown on note cards.
 const coverOptions = {
-  sunrise: { backgroundColor: "#fef3c7", emoji: "🌤" },
-  ocean: { backgroundColor: "#dbeafe", emoji: "🌊" },
-  forest: { backgroundColor: "#dcfce7", emoji: "🌿" },
+  sunrise: { backgroundColor: "#fef3c7", emoji: "Ã°Å¸Å’Â¤" },
+  ocean: { backgroundColor: "#dbeafe", emoji: "Ã°Å¸Å’Å " },
+  forest: { backgroundColor: "#dcfce7", emoji: "Ã°Å¸Å’Â¿" },
 } as const;
 
 export function NoteDetailsScreen() {
-  // Reads the note id from the route when opening an existing note from the list.
   const params = useLocalSearchParams<{ noteId?: string }>();
   const noteId = typeof params.noteId === "string" ? params.noteId : undefined;
-
-  // Reads the current language so the detail editor respects RTL layouts.
   const { i18n } = useTranslation();
   const rtl = isRTL(i18n.resolvedLanguage);
-
-  // Finds the note currently being edited when the screen opens in edit mode.
   const existingNote = useAppSelector((state) =>
     state.notes.items.find((item) => item.id === noteId),
   );
   const dispatch = useAppDispatch();
-
-  // Holds the editable note title draft.
   const [title, setTitle] = useState(existingNote?.title ?? "");
-  // Holds the editable note body draft.
   const [content, setContent] = useState(existingNote?.content ?? "");
-  // Holds the current folder selection.
   const [folder, setFolder] = useState<NoteFolder>(existingNote?.folder ?? "Inbox");
-  // Holds the selected labels.
   const [labels, setLabels] = useState<NoteLabel[]>(existingNote?.labels ?? ["Personal"]);
-  // Holds the pin state while editing the note.
   const [pinned, setPinned] = useState(existingNote?.pinned ?? false);
-  // Holds the lock state while editing the note.
   const [locked, setLocked] = useState(existingNote?.locked ?? false);
-  // Holds the selected note content type.
   const [noteType, setNoteType] = useState<NoteType>(existingNote?.noteType ?? "text");
-  // Holds the selected visual formatting preset.
   const [textStyle, setTextStyle] = useState<NoteTextStyle>(
     existingNote?.textStyle ?? "plain",
   );
-  // Holds the selected cover preset for thumbnails and the detail header.
   const [coverStyle, setCoverStyle] = useState<NoteCoverStyle>(
     existingNote?.coverStyle ?? "sunrise",
   );
-  // Holds checklist rows when the note is a checklist note.
   const [checklist, setChecklist] = useState<NoteChecklistItem[]>(
     existingNote?.checklist ?? [],
   );
-  // Holds a new checklist row before it gets added to the list.
   const [checklistInput, setChecklistInput] = useState("");
 
   useEffect(() => {
-    // Syncs local editor state when the screen opens a different existing note.
     if (!existingNote) {
       return;
     }
@@ -110,7 +81,6 @@ export function NoteDetailsScreen() {
   }, [existingNote]);
 
   function handleToggleLabel(label: NoteLabel) {
-    // Adds or removes a label from the note without allowing the label list to become empty.
     setLabels((currentLabels) => {
       if (currentLabels.includes(label)) {
         const nextLabels = currentLabels.filter((currentLabel) => currentLabel !== label);
@@ -123,13 +93,9 @@ export function NoteDetailsScreen() {
 
   function handleAddChecklistItem() {
     const trimmedChecklistInput = checklistInput.trim();
-
-    // Ignores blank checklist rows to keep stored checklist data clean.
     if (!trimmedChecklistInput) {
       return;
     }
-
-    // Adds a new checklist row and clears the checklist input field.
     setChecklist((currentChecklist) => [
       ...currentChecklist,
       { id: createEntityId("check"), text: trimmedChecklistInput, done: false },
@@ -138,7 +104,6 @@ export function NoteDetailsScreen() {
   }
 
   function handleToggleChecklistItem(itemId: string) {
-    // Flips the done state for the tapped checklist row.
     setChecklist((currentChecklist) =>
       currentChecklist.map((item) =>
         item.id === itemId ? { ...item, done: !item.done } : item,
@@ -147,14 +112,12 @@ export function NoteDetailsScreen() {
   }
 
   function handleDeleteChecklistItem(itemId: string) {
-    // Removes a checklist row from the note draft.
     setChecklist((currentChecklist) =>
       currentChecklist.filter((item) => item.id !== itemId),
     );
   }
 
   function handleSaveNote() {
-    // Builds the shared note payload from the current editor fields.
     const notePayload = createNoteDraft({
       id: existingNote?.id,
       title: title.trim() || "Untitled note",
@@ -170,8 +133,6 @@ export function NoteDetailsScreen() {
       createdAt: existingNote?.createdAt,
       updatedAt: existingNote?.updatedAt,
     });
-
-    // Creates a new note when no note id exists, otherwise updates the existing note.
     if (existingNote) {
       dispatch(
         updateNote({
@@ -183,13 +144,10 @@ export function NoteDetailsScreen() {
     } else {
       dispatch(addNote(notePayload));
     }
-
-    // Returns to the notes list after saving the note.
     router.replace("/notes");
   }
 
   function handleDuplicateNote() {
-    // Creates a copy of the current note and returns to the notes list.
     if (!existingNote) {
       return;
     }
@@ -199,7 +157,6 @@ export function NoteDetailsScreen() {
   }
 
   function handleDeleteNote() {
-    // Deletes the current note and returns to the notes list.
     if (!existingNote) {
       router.replace("/notes");
       return;
@@ -219,7 +176,6 @@ export function NoteDetailsScreen() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            {/* Provides back navigation and a save action for the note editor. */}
             <View style={[noteStyles.editorTopBar, rtl && noteStyles.editorTopBarRtl]}>
               <Pressable onPress={() => router.back()} style={noteStyles.secondaryButton}>
                 <Text
@@ -242,13 +198,9 @@ export function NoteDetailsScreen() {
                 </Text>
               </Pressable>
             </View>
-
-            {/* Titles the screen based on whether the user is creating or editing a note. */}
             <Text style={[noteStyles.editorTitle, rtl ? noteStyles.textRtl : noteStyles.textLtr]}>
               {existingNote ? "Edit note" : "Create note"}
             </Text>
-
-            {/* Groups all editor sections into one scrollable note editing experience. */}
             <View style={noteStyles.editorContent}>
               <View style={noteStyles.editorCard}>
                 <Text

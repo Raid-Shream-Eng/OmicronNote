@@ -1,10 +1,3 @@
-/**
- * Student Guide:
- * This file holds the shared style sheet for the landing UI.
- * Several screens also reuse parts of these styles to stay visually consistent.
- * Treat this file as a visual system reference for spacing, shells, cards, and shared RTL helpers.
- * When learning the project layout, it helps to compare this style file with the notes and tasks style files.
- */
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({

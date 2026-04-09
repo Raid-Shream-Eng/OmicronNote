@@ -1,10 +1,3 @@
-/**
- * Student Guide:
- * This file is the home screen of the app.
- * It introduces the product, links into notes and tasks, and shows the shared top-level shell style.
- * It combines shared landing components with routing behavior and bottom navigation.
- * If you want to understand the app's entry experience, this is the screen to read first.
- */
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -59,7 +52,6 @@ export function LandingScreen() {
       <StatusBar style="dark" />
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.phoneShell}>
-          {/* Splits the landing screen into scrollable content and a fixed bottom navigation bar. */}
           <View style={{ flex: 1 }}>
             <ScrollView
               contentContainerStyle={styles.content}
@@ -68,7 +60,6 @@ export function LandingScreen() {
               <HeaderProfile
                 name={t("profileName")}
                 profileImage={profileImage}
-                // Preserves the landing screen when the language toggle reloads the app.
                 resumeRoute="/"
               />
 
@@ -79,7 +70,6 @@ export function LandingScreen() {
                   <Pressable
                     key={item.key}
                     onPress={
-                      // Sends each landing quick action to its matching screen.
                       item.key === "todo"
                         ? () => router.push("/tasks")
                         : () => router.push("/notes")
@@ -137,7 +127,6 @@ export function LandingScreen() {
                 <AddButton label={t("addNewFolder")} />
               </View>
             </ScrollView>
-            {/* Adds section-level tab navigation so the user can switch screens from the landing page. */}
             <BottomNav />
           </View>
         </View>
